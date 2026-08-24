@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client"
+}
+
+datasource db {
+  provider = "sqlite"
+  // url is defined in prisma.config.ts — do NOT add url here
+}
+
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  name           String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  events         IntelligenceEvent[]
+  alerts         Alert[]
+  airdrops       AirdropOpportunity[]
+  watchlist      WatchlistItem[]
+  settings       UserSettings?
+}
+
+model UserSettings {
+  id                           String    @id @default(cuid())
+  userId                       String    @unique
+  user                         User      @relation(fields: [userId], references: [id])
+  high_impact_threshold        Int       @default(75)
+  critical_threshold           Int       @default(90)
+  min_confidence               Int       @default(60)
+  notifications_enabled        Boolean   @default(true)
+  push_enabled                 Boolean   @default(false)
+  email_enabled                Boolean   @default(false)
+  sound_enabled                Boolean   @default(true)
+  createdAt                    DateTime  @default(now())
+  updatedAt                    DateTime  @updatedAt
+}
+
+model IntelligenceEvent {
+  id                     String   @id @default(cuid())
+  userId                 String
+  user                   User     @relation(fields: [userId], references: [id])
+  headline               String
+  summary                String
+  source                 String
+  source_url             String
+  source_type            String
+  asset                  String
+  asset_class            String
+  direction              String
+  impact_score           Int
+  confidence_score       Int
+  verification_status    String
+  agent_type             String
+  reasoning              String?
+  market_reaction        String?
+  affected_assets        String?
+  risk_flags             String?
+  other_sources          String?
+  published_at           DateTime @default(now())
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
+  source_count           Int?
+  is_demo                Boolean  @default(false)
+}
+
+model AirdropOpportunity {
+  id                     String   @id @default(cuid())
+  userId                 String
+  user                   User     @relation(fields: [userId], references: [id])
+  project_name           String
+  chain                  String
+  category               String
+  status                 String
+  opportunity_score      Int
+  risk_score             Int
+  confidence_score       Int
+  estimated_effort       String
+  funding                String?
+  tvl                    String?
+  participants           Int?
+  website                String?
+  campaign_url           String?
+  official_confirmation  Boolean  @default(false)
+  scam_risk              String   @default('Low')
+  requirements           String?
+  backers                String?
+  risk_flags             String?
+  notes                  String?
+  project_age            String?
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
+}
+
+model Alert {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+  title             String
+  message           String
+  priority          String
+  asset             String?
+  impact_score      Int?
+  confidence_score  Int?
+  source_url        String?
+  is_read           Boolean   @default(false)
+  created_at        DateTime  @default(now())
+}
+
+model WatchlistItem {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  symbol      String
+  name        String
+  asset_class String
+  price       Float?
+  change_24h  Float?
+  added_at    DateTime @default(now())
+}
+
+model Source {
+  id          String   @id @default(cuid())
+  name        String
+  type        String
+  url         String?
+  is_active   Boolean  @default(true)
+  last_check  DateTime?
+  created_at  DateTime @default(now())
+}
+
+model SystemStatus {
+  id                  String   @id @default(cuid())
+  agents_online       Int      @default(7)
+  agents_total        Int      @default(8)
+  sources_online      Int      @default(3)
+  events_processed    Int      @default(12847)
+  duplicates_removed  Int      @default(3421)
+  last_updated        DateTime @default(now())
+}
