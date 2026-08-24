@@ -1,0 +1,51 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.cursor
+
+# Vercel
+.vercel
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+
+# Shogo internal
+.shogo/
+.shogo-pool-assignment
+.shogo-runtime-version
+
+# Agent memory
+memory/
+
+# Uploaded files
+files/
+
+# OS
+Thumbs.db

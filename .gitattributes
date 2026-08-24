@@ -1,0 +1,15 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Syntax for language detection
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
+*.js linguist-language=JavaScript
+*.jsx linguist-language=JavaScript
+*.css linguist-language=CSS
+*.html linguist-language=HTML
+*.json linguist-language=JSON
+*.md linguist-language=Markdown
+*.sql linguist-language=SQL
+*.prisma linguist-language=Prisma
+*.mjs linguist-language=JavaScript
