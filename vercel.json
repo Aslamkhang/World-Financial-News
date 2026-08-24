@@ -3,6 +3,7 @@
   "buildCommand": "bun run build",
   "outputDirectory": "dist",
   "installCommand": "bun install",
+  "framework": "vite",
   "functions": {
     "api/**/*.ts": {
       "maxDuration": 10
