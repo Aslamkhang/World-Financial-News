@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { cn } from '@/lib/cn'
 import {
   LayoutDashboard, Newspaper, Shield, Bitcoin, TrendingUp, BarChart3, Droplets,
@@ -654,9 +655,11 @@ export default function App() {
     }
   }
   return (
-    <div className="flex h-screen bg-violet-500/5 text-gray-900 overflow-hidden">
-      <Sidebar active={activeSection} onNavigate={setActiveSection} collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
-      <main className="flex-1 overflow-y-auto bg-violet-500/5">
+    <>
+      <SpeedInsights />
+      <div className="flex h-screen bg-violet-500/5 text-gray-900 overflow-hidden">
+        <Sidebar active={activeSection} onNavigate={setActiveSection} collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+        <main className="flex-1 overflow-y-auto bg-violet-500/5">
         <div className="sticky top-0 z-10 bg-violet-500/8 backdrop-blur-sm border-b border-violet-200 px-6 py-3 flex items-center justify-between">
           <h2 className="text-sm font-bold text-gray-700 capitalize font-headline">{activeSection.replace(/-/g, ' ')}</h2>
           <div className="flex items-center gap-3">
@@ -669,6 +672,7 @@ export default function App() {
           {renderSection()}
         </div>
       </main>
-    </div>
+      </div>
+    </>
   )
 }
